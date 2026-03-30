@@ -1,7 +1,6 @@
 # Predicción de Agotamiento de Stock en Productos
 
-Este proyecto tiene como objetivo anticipar, mediante un modelo de IA, si un producto en bodega se agotará en los próximos días, utilizando variables como historial de ventas, frecuencia de reposición y estacionalidad.
-
+Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrenar un modelo de IA con multiples fuentes de datos.
 ---
 
 ## Componentes del sistema
