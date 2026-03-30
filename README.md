@@ -1,4 +1,4 @@
-# Predicción de Agotamiento de Stock en Productos
+# Pipeline automatizado para el entrenamiento de un modelo IA.
 
 Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrenar un modelo de IA con multiples fuentes de datos.
 ---
