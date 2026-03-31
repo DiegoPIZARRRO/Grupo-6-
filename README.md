@@ -81,8 +81,8 @@ agotamiento-stock/
 
 ## Documentación técnica
 
-El documento de diseño técnico está disponible en:  
-[`docs/diseño_tecnico.pdf`](docs/diseño_tecnico.pdf)
+El documento de diseño técnico está disponible en: 
+[Diseño tecnico_ FreshRoute.docx](https://github.com/user-attachments/files/26389107/Diseno.tecnico_.FreshRoute.docx)
 
 ---
 
