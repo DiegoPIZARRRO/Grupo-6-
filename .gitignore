@@ -15,4 +15,4 @@ env
 dist/
 build/
 telco.csv
-telco_preprocesadogit.csv
+telco_preprocesado.csv
