@@ -1,0 +1,2 @@
+﻿timestamp,nivel,etapa,columna,descripcion,filas_afectadas,accion
+2026-05-20 14:19:15,INFO,Carga de datos,TODAS,Dataset cargado correctamente desde data/raw/.,7043,Lectura de archivo CSV completada exitosamente.
