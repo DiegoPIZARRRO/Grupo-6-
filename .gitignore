@@ -13,3 +13,4 @@ env
 *.log
 dist/
 build/
+telco.csv
