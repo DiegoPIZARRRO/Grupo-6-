@@ -16,3 +16,4 @@ dist/
 build/
 telco.csv
 telco_preprocesado.csv
+reporte_errores_validacion.csv
