@@ -1,8 +1,0 @@
-APP_ENV=development
-PORT=10000
-SUPABASE_DB_HOST=aws-1-us-east-1.pooler.supabase.com
-SUPABASE_DB_PORT=5432
-SUPABASE_DB_NAME=postgres
-SUPABASE_DB_USER=postgres.lzlcedqmmzyvhfkhmxde
-SUPABASE_DB_PASSWORD=castabenja042436
-MODEL_TARGET_COLUMN=
