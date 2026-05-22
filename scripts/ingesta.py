@@ -13,19 +13,13 @@ PROCESSED_DIR = PROJECT_ROOT / "data" / "processed"
 REPORTS_DIR = PROJECT_ROOT / "reports"
 
 # Nombre del archivo CSV de entrada.
-INPUT_FILE = Path("telco.csv")
-
 INPUT_FILENAME = "telco.csv"
-
-# Nombre del archivo CSV de salida.
-OUTPUT_FILENAME = "telco_limpio.csv"
 
 # Nombre del archivo de reporte de errores 
 LOG_FILENAME = "reporte_errores_validacion.csv"
 
 # Rutas completas.
 INPUT_FILE = RAW_DIR / INPUT_FILENAME
-OUTPUT_FILE = PROCESSED_DIR / OUTPUT_FILENAME
 LOG_FILE = REPORTS_DIR / LOG_FILENAME
 README_FILE = PROJECT_ROOT / "README.md"
 
