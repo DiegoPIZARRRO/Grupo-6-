@@ -81,7 +81,7 @@ Grupo-6-/
 4. Ejecutar cada script del pipiline en el siguiente orden:  
    `python scripts/ingesta.py`  
    `python scripts/limpieza_transformacion.py`  
-   `python scripts/validacion_estructural_semantica.py`
+   `python scripts/validacion_estructural_semantica.py`                
    `python scripts/carga_telco_supabase.py`
 
 ---
