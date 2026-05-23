@@ -75,7 +75,7 @@ Grupo-6-/
 2. Entrar a la carpeta del proyecto  
    `cd Grupo-6-`
    
-3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase
+3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase                                
    `type nul > .env`
 
 4. Ejecutar cada script del pipiline en el siguiente orden:  
