@@ -5,10 +5,9 @@ Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrena
 
 ## Componentes del sistema
 
-- **Scripts de procesamiento**: ingesta, limpieza, transformación y validación de datos.
-- **Base de datos PostgreSQL**: para la carga y consulta estructurada de los datasets.
-- **Modelo de IA (scikit-learn)**: clasificación binaria para predecir agotamiento.
-- **Metabase (opcional)**: dashboard de visualización de resultados.
+- **Archivo CSV**: Dataset a procesar.
+- **Scripts de procesamiento**: ingesta, limpieza y transformación, validación de datos y carga a un entorno en SupaBase.
+- **Base de datos SupaBase**: para la carga y consulta estructurada del dataset.
 - **Documentación**: diseño técnico completo + planificación.
 
 ---
@@ -17,10 +16,10 @@ Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrena
 
 - Python 3  
 - Pandas / Scikit-learn  
-- PostgreSQL  
+- SupaBase  
 - Docker  
 - Git / GitHub  
-- Trello / Jira (planificación)
+- Ms Project (planificación)
 
 ---
 
@@ -29,31 +28,30 @@ Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrena
 | Etapa | Descripción |
 |-------|-------------|
 | 1. Diseño e instalación | Estructura de carpetas, setup del entorno, definición de herramientas |
-| 2. Ingesta | Lectura desde CSV (Kaggle o Mockaroo), carga a memoria |
+| 2. Ingesta | Lectura desde CSV y carga a memoria |
 | 3. Limpieza | Eliminación de duplicados, tratamiento de nulos, revisión de tipos |
 | 4. Transformación | Creación de variables como días sin reposición, tasa de ventas, etc. |
 | 5. Validación | Revisión de rangos, tipos, coherencia; validación básica |
-| 6. Carga en PostgreSQL | Subida del dataset limpio y validado a la base de datos local |
-| 7. Entrenamiento IA | Clasificación binaria con scikit-learn para variable `SeAgotara` |
-| 8. Evaluación | Métricas como accuracy, recall; revisión de logs de ejecución |
-| 9. Visualización | Panel con predicciones, stock proyectado y alertas (si aplica) |
+| 6. Carga en Supabase | Subida del dataset limpio y validado a la base de datos |
 
 ---
 
 ## 📂 Estructura del repositorio
 
 ```
-agotamiento-stock/
-├── README.md
-├── docs/
-│   └── diseño_tecnico.pdf
+Grupo-6-/
+├── .github
+├── app/
+│   └── __init__.py
+|   └── main.py
 ├── scripts/
 │   ├── ingesta.py
 │   ├── limpieza.py
 │   ├── transformacion.py
 │   └── entrenamiento.py
 ├── data/
-│   └── productos_ventas.csv
+│   └── raw/
+|     └── telco.csv
 ├── dashboards/
 │   └── dashboard_metabase.png
 ├── docker-compose.yml
