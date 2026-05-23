@@ -40,21 +40,22 @@ Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrena
 
 ```
 Grupo-6-/
-├── .github
+├── .github/workflows
+|   └── ci.yml
 ├── app/
 │   └── __init__.py
 |   └── main.py
 ├── scripts/
 │   ├── ingesta.py
-│   ├── limpieza.py
-│   ├── transformacion.py
-│   └── entrenamiento.py
+│   ├── limpieza_transformacion.py
+│   ├── validacion_estructural_semantica.py
+│   └── carga_telco_supabase.py
 ├── data/
 │   └── raw/
 |     └── telco.csv
-├── dashboards/
-│   └── dashboard_metabase.png
-├── docker-compose.yml
+├── tests/
+│   └── test_health.py
+├──
 ```
 
 ---
