@@ -55,7 +55,14 @@ Grupo-6-/
 |     └── telco.csv
 ├── tests/
 │   └── test_health.py
-├──
+├── .dockerignore
+├── .env.examole
+├── .gitignore
+├── Dockerfile
+├── README.md
+├── render.yaml
+├── requirements.txt
+
 ```
 
 ---
@@ -63,18 +70,19 @@ Grupo-6-/
 ## Cómo ejecutar el sistema (entorno ya instalado)
 
 1. Clonar el repositorio  
-   `git clone https://github.com/usuario/agotamiento-stock.git`
+   `https://github.com/DiegoPIZARRRO/Grupo-6-`
 
 2. Entrar a la carpeta del proyecto  
-   `cd agotamiento-stock`
+   `cd Grupo-6-`
+   
+3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase
+   `type nul > .env`
 
-3. Ejecutar el pipeline manualmente por etapas  
-   Ejemplo:  
+4. Ejecutar cada script del pipiline en el siguiente orden:  
    `python scripts/ingesta.py`  
-   `python scripts/limpieza.py`  
-   `python scripts/entrenamiento.py`
-
-4. Visualizar los resultados y métricas desde consola o dashboard
+   `python scripts/limpieza_transformacion.py`  
+   `python scripts/validacion_estructural_semantica.py`
+   `python scripts/carga_telco_supabase.py`
 
 ---
 
@@ -87,9 +95,9 @@ El documento de diseño técnico está disponible en:
 
 ## Equipo
 
-- Integrante 1 – Procesamiento y limpieza  
-- Integrante 2 – Modelado y entrenamiento  
-- Integrante 3 – Visualización y documentación
+- Integrante 1 – Benjamín Castañeda
+- Integrante 2 – Diego Pizarro  
+- Integrante 3 – Ángel Durand
 
 
 ## Validación y limpieza del dataset de Telco
