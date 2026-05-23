@@ -56,7 +56,7 @@ Grupo-6-/
 ├── tests/
 │   └── test_health.py
 ├── .dockerignore
-├── .env.examole
+├── .env.example
 ├── .gitignore
 ├── Dockerfile
 ├── README.md
