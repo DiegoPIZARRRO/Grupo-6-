@@ -5,10 +5,9 @@ Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrena
 
 ## Componentes del sistema
 
-- **Scripts de procesamiento**: ingesta, limpieza, transformación y validación de datos.
-- **Base de datos PostgreSQL**: para la carga y consulta estructurada de los datasets.
-- **Modelo de IA (scikit-learn)**: clasificación binaria para predecir agotamiento.
-- **Metabase (opcional)**: dashboard de visualización de resultados.
+- **Archivo CSV**: Dataset a procesar.
+- **Scripts de procesamiento**: ingesta, limpieza y transformación, validación de datos y carga a un entorno en SupaBase.
+- **Base de datos SupaBase**: para la carga y consulta estructurada del dataset.
 - **Documentación**: diseño técnico completo + planificación.
 
 ---
@@ -17,10 +16,10 @@ Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrena
 
 - Python 3  
 - Pandas / Scikit-learn  
-- PostgreSQL  
+- SupaBase  
 - Docker  
 - Git / GitHub  
-- Trello / Jira (planificación)
+- Ms Project (planificación)
 
 ---
 
@@ -29,34 +28,42 @@ Este proyecto tiene como objetivo desarrollar pipeline automatizado para entrena
 | Etapa | Descripción |
 |-------|-------------|
 | 1. Diseño e instalación | Estructura de carpetas, setup del entorno, definición de herramientas |
-| 2. Ingesta | Lectura desde CSV (Kaggle o Mockaroo), carga a memoria |
+| 2. Ingesta | Lectura desde CSV y carga a memoria |
 | 3. Limpieza | Eliminación de duplicados, tratamiento de nulos, revisión de tipos |
 | 4. Transformación | Creación de variables como días sin reposición, tasa de ventas, etc. |
 | 5. Validación | Revisión de rangos, tipos, coherencia; validación básica |
-| 6. Carga en PostgreSQL | Subida del dataset limpio y validado a la base de datos local |
-| 7. Entrenamiento IA | Clasificación binaria con scikit-learn para variable `SeAgotara` |
-| 8. Evaluación | Métricas como accuracy, recall; revisión de logs de ejecución |
-| 9. Visualización | Panel con predicciones, stock proyectado y alertas (si aplica) |
+| 6. Carga en Supabase | Subida del dataset limpio y validado a la base de datos |
 
 ---
 
 ## 📂 Estructura del repositorio
 
 ```
-agotamiento-stock/
-├── README.md
-├── docs/
-│   └── diseño_tecnico.pdf
+Grupo-6-/
+├── .github/workflows
+|   └── ci.yml
+├── app/
+│   └── __init__.py
+|   └── main.py
 ├── scripts/
 │   ├── ingesta.py
-│   ├── limpieza.py
-│   ├── transformacion.py
-│   └── entrenamiento.py
+│   ├── limpieza_transformacion.py
+│   ├── validacion_estructural_semantica.py
+│   └── carga_telco_supabase.py
 ├── data/
-│   └── productos_ventas.csv
-├── dashboards/
-│   └── dashboard_metabase.png
-├── docker-compose.yml
+│   └── raw/
+|     └── telco.csv
+├── tests/
+│   └── test_health.py
+├── .dockerignore
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── ejecutar_pipeline.py
+├── README.md
+├── render.yaml
+├── requirements.txt
+
 ```
 
 ---
@@ -64,33 +71,35 @@ agotamiento-stock/
 ## Cómo ejecutar el sistema (entorno ya instalado)
 
 1. Clonar el repositorio  
-   `git clone https://github.com/usuario/agotamiento-stock.git`
+   `https://github.com/DiegoPIZARRRO/Grupo-6-`
 
 2. Entrar a la carpeta del proyecto  
-   `cd agotamiento-stock`
+   `cd Grupo-6-`
+   
+3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase                                
+   `type nul > .env`
 
-3. Ejecutar el pipeline manualmente por etapas  
-   Ejemplo:  
+4. Ejecutar cada script del pipiline en el siguiente orden:  
    `python scripts/ingesta.py`  
-   `python scripts/limpieza.py`  
-   `python scripts/entrenamiento.py`
-
-4. Visualizar los resultados y métricas desde consola o dashboard
+   `python scripts/limpieza_transformacion.py`  
+   `python scripts/validacion_estructural_semantica.py`                
+   `python scripts/carga_telco_supabase.py`
 
 ---
 
 ## Documentación técnica
 
 El documento de diseño técnico está disponible en: 
-[Diseño tecnico_ FreshRoute.docx](https://github.com/user-attachments/files/26389107/Diseno.tecnico_.FreshRoute.docx)
+[CASO_ TELCO GRUPO 6.docx](https://github.com/user-attachments/files/28271673/CASO_.TELCO.GRUPO.6.docx)
+
 
 ---
 
 ## Equipo
 
-- Integrante 1 – Procesamiento y limpieza  
-- Integrante 2 – Modelado y entrenamiento  
-- Integrante 3 – Visualización y documentación
+- Integrante 1 – Benjamín Castañeda
+- Integrante 2 – Diego Pizarro  
+- Integrante 3 – Ángel Durand
 
 
 ## Validación y limpieza del dataset de Telco
