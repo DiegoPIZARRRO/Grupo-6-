@@ -51,19 +51,10 @@ Grupo-6-/
 │   ├── validacion_estructural_semantica.py
 │   └── carga_telco_supabase.py
 ├── data/
-│   └── raw/
-|     └── telco.csv
-├── tests/
-│   └── test_health.py
-├── .dockerignore
-├── .env.example
-├── .gitignore
-├── Dockerfile
-├── ejecutar_pipeline.py
-├── README.md
-├── render.yaml
-├── requirements.txt
-
+│   └── productos_ventas.csv
+├── dashboards/
+│   └── dashboard_metabase.png
+├── docker-compose.yml
 ```
 
 ---
