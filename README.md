@@ -93,7 +93,7 @@ Grupo-6-/
 8. Levantar el servidor localmente                                                     
    `docker run --name mvp-telco-container -p 8000:8000 mvp-telco`
    
-9. Checkear en el navegador
+9. Checkear en el navegador                                                                    
    `http://127.0.0.1:8000/`
    
 10. Ejecutar el script pricipal del pipiline:                                                        
