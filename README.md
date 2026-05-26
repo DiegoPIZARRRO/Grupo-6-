@@ -89,7 +89,8 @@ Grupo-6-/
 ## Documentación técnica
 
 El documento de diseño técnico está disponible en: 
-[Diseño tecnico_ FreshRoute.docx](https://github.com/user-attachments/files/26389107/Diseno.tecnico_.FreshRoute.docx)
+[CASO_ TELCO GRUPO 6.docx](https://github.com/user-attachments/files/28271673/CASO_.TELCO.GRUPO.6.docx)
+
 
 ---
 
