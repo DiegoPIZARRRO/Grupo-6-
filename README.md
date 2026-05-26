@@ -75,25 +75,25 @@ Grupo-6-/
 2. Entrar a la carpeta del proyecto  
    `cd Grupo-6-`
    
-3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase                                
-   `type nul > .env`                  
+3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase                                                                     
+   `type nul > .env`                                                                    
    
-4. Crear el entorno .venv
+4. Crear el entorno .venv                                             
    `python -m venv .venv`                
    
-5. Activar el entorno
+5. Activar el entorno                                                    
    `.venv\Scripts\activate`
                   
-6. Instalar las todas las dependencias
+6. Instalar las todas las dependencias                                      
    `pip install -r requirements.txt`
    
-7. Crear el contenedor Docker
+7. Crear el contenedor Docker                                                                      
    `docker build -t mvp-telco .`
 
-8. Levantar el servidor localmente
+8. Levantar el servidor localmente                                                     
    `docker run --name mvp-telco-container -p 8000:8000 mvp-telco`
         
-9. Ejecutar el script pricipal del pipiline:  
+9. Ejecutar el script pricipal del pipiline:                                                        
    `python /ejecutar_pipeline.py`    
 
 ---
