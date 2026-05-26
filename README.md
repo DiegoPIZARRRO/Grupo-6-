@@ -51,15 +51,23 @@ Grupo-6-/
 │   ├── validacion_estructural_semantica.py
 │   └── carga_telco_supabase.py
 ├── data/
-│   └── productos_ventas.csv
-├── dashboards/
-│   └── dashboard_metabase.png
-├── docker-compose.yml
+│   └── raw/
+|     └── telco.csv
+├── tests/
+│   └── test_health.py
+├── .dockerignore
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── ejecutar_pipeline.py
+├── README.md
+├── render.yaml
+├── requirements.txt
 ```
 
 ---
 
-## Cómo ejecutar el sistema (entorno ya instalado)
+## Cómo ejecutar el pipeline
 
 1. Clonar el repositorio  
    `https://github.com/DiegoPIZARRRO/Grupo-6-`
@@ -68,13 +76,25 @@ Grupo-6-/
    `cd Grupo-6-`
    
 3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase                                
-   `type nul > .env`
+   `type nul > .env`                  
+   
+4. Crear el entorno .venv
+   `python -m venv .venv`                
+   
+5. Activar el entorno
+   `.venv\Scripts\activate`
+                  
+6. Instalar las todas las dependencias
+   `pip install -r requirements.txt`
+   
+7. Crear el contenedor Docker
+   `docker build -t mvp-telco .`
 
-4. Ejecutar cada script del pipiline en el siguiente orden:  
-   `python scripts/ingesta.py`  
-   `python scripts/limpieza_transformacion.py`  
-   `python scripts/validacion_estructural_semantica.py`                
-   `python scripts/carga_telco_supabase.py`
+8. Levantar el servidor localmente
+   `docker run --name mvp-telco-container -p 8000:8000 mvp-telco`
+        
+9. Ejecutar el script pricipal del pipiline:  
+   `python /ejecutar_pipeline.py`    
 
 ---
 
