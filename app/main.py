@@ -1,5 +1,6 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException, Query
 from scipy import stats
+from app.db import test_connection, get_clientes
 
 app = FastAPI(title="MVP pipline telco")
 
@@ -14,4 +15,17 @@ def health_check():
 @app.get("/db-health")
 def db_health_check():
     return {"status": "ok"}
+
+@app.get("/clientes")
+def postulaciones_demo(limit: int = Query(default=20, ge=1)):
+    try:
+        data = get_clientes(limit=limit)
+        return {
+            "status": "ok",
+            "count": len(data),
+            "limit": limit,
+            "data": data
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
