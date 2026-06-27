@@ -128,3 +128,39 @@ El documento de diseño técnico está disponible en:
 Esta etapa permite mejorar la calidad semántica y técnica del dataset antes de su uso en procesos posteriores,
 como carga a base de datos, análisis exploratorio, construcción de modelos o generación de reportes.
 Además, deja evidencia reproducible de las reglas aplicadas y de los problemas detectados.
+
+## Validación y limpieza del dataset de Telco
+
+**Fecha de ejecución:** 2026-06-09 17:10:26
+
+### Archivos utilizados
+
+- Dataset de entrada: `data\processed\telco_preprocesado.csv`
+- Dataset limpio generado: `data\processed\telco_limpio.csv`
+- Reporte de validación: `reports\reporte_errores_validacion.csv`
+
+### Resumen del procesamiento
+
+- Filas originales: 7043
+- Filas finales: 7032
+- Filas eliminadas: 11
+- Problemas registrados en logs: 11
+
+### Transformaciones aplicadas
+
+- Estandarización de nombres de columnas.
+- Limpieza y normalización de columnas de texto.
+- Conversión de columnas de fecha cuando corresponde.
+- Conversión de columnas numéricas cuando corresponde.
+- Eliminación de filas vacías.
+- Eliminación de registros duplicados.
+- Eliminación de registros con valores nulos.
+- Validación de rangos permitidos para columnas numéricas relevantes.
+- Creación de columnas derivadas cuando existen variables suficientes.
+- Generación de reporte de validación para revisar decisiones tomadas durante la limpieza.
+
+### Rol dentro del pipeline de datos
+
+Esta etapa permite mejorar la calidad semántica y técnica del dataset antes de su uso en procesos posteriores,
+como carga a base de datos, análisis exploratorio, construcción de modelos o generación de reportes.
+Además, deja evidencia reproducible de las reglas aplicadas y de los problemas detectados.
