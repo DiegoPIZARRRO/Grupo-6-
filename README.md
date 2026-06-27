@@ -51,15 +51,23 @@ Grupo-6-/
 │   ├── validacion_estructural_semantica.py
 │   └── carga_telco_supabase.py
 ├── data/
-│   └── productos_ventas.csv
-├── dashboards/
-│   └── dashboard_metabase.png
-├── docker-compose.yml
+│   └── raw/
+|     └── telco.csv
+├── tests/
+│   └── test_health.py
+├── .dockerignore
+├── .env.example
+├── .gitignore
+├── Dockerfile
+├── ejecutar_pipeline.py
+├── README.md
+├── render.yaml
+├── requirements.txt
 ```
 
 ---
 
-## Cómo ejecutar el sistema (entorno ya instalado)
+## Cómo ejecutar el pipeline
 
 1. Clonar el repositorio  
    `https://github.com/DiegoPIZARRRO/Grupo-6-`
@@ -67,14 +75,29 @@ Grupo-6-/
 2. Entrar a la carpeta del proyecto  
    `cd Grupo-6-`
    
-3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase                                
-   `type nul > .env`
+3. Crear un archivo .env con el formato de env.example usando tus credenciales de SupaBase                                                                     
+   `type nul > .env`                                                                    
+   
+4. Crear el entorno .venv                                             
+   `python -m venv .venv`                
+   
+5. Activar el entorno                                                    
+   `.venv\Scripts\activate`
+                  
+6. Instalar las todas las dependencias                                      
+   `pip install -r requirements.txt`
+   
+7. Crear el contenedor Docker                                                                      
+   `docker build -t mvp-telco .`
 
-4. Ejecutar cada script del pipiline en el siguiente orden:  
-   `python scripts/ingesta.py`  
-   `python scripts/limpieza_transformacion.py`  
-   `python scripts/validacion_estructural_semantica.py`                
-   `python scripts/carga_telco_supabase.py`
+8. Levantar el servidor localmente                                                     
+   `docker run --name mvp-telco-container -p 8000:8000 mvp-telco`
+   
+9. Checkear en el navegador                                                                    
+   `http://127.0.0.1:8000/`
+   
+10. Ejecutar el script pricipal del pipiline:                                                        
+   `python /ejecutar_pipeline.py`    
 
 ---
 
@@ -128,6 +151,7 @@ El documento de diseño técnico está disponible en:
 Esta etapa permite mejorar la calidad semántica y técnica del dataset antes de su uso en procesos posteriores,
 como carga a base de datos, análisis exploratorio, construcción de modelos o generación de reportes.
 Además, deja evidencia reproducible de las reglas aplicadas y de los problemas detectados.
+<<<<<<< HEAD
 
 ## Validación y limpieza del dataset de Telco
 
@@ -164,3 +188,5 @@ Además, deja evidencia reproducible de las reglas aplicadas y de los problemas 
 Esta etapa permite mejorar la calidad semántica y técnica del dataset antes de su uso en procesos posteriores,
 como carga a base de datos, análisis exploratorio, construcción de modelos o generación de reportes.
 Además, deja evidencia reproducible de las reglas aplicadas y de los problemas detectados.
+=======
+>>>>>>> f326489653ce93c0fe3b366bd6d79b25c994ff20
