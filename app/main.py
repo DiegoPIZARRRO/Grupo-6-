@@ -10,7 +10,7 @@ app = FastAPI(title="MVP pipline telco")
 DIRECTORIO_APP = os.path.dirname(os.path.abspath(__file__))
 DIRECTORIO_RAIZ = os.path.dirname(DIRECTORIO_APP)
 
-ruta_modelo = os.path.join(DIRECTORIO_RAIZ, "artifacts", "predictor_churn_pipeline.joblib")
+ruta_modelo = os.path.join(os.path.dirname(__file__), "..", "artifacts", "predictor_churn_pipeline.joblib")
 
 try:
     modelo_churn = joblib.load(ruta_modelo)
