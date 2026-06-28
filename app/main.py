@@ -12,8 +12,6 @@ DIRECTORIO_RAIZ = os.path.dirname(DIRECTORIO_APP)
 
 ruta_modelo = os.path.join(DIRECTORIO_RAIZ, "artifacts", "predictor_churn_pipeline.joblib")
 
-print(f"DEBUG: Buscando modelo en: {os.path.abspath(ruta_modelo)}")
-
 try:
     modelo_churn = joblib.load(ruta_modelo)
     print(f"¡ÉXITO! El Cerebro IA se ha cargado correctamente desde: {ruta_modelo}")
@@ -83,15 +81,3 @@ def predecir_fuga(customerid: str):
 
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Error al predecir: {str(e)}")
-
-
-
-print(f"DEBUG: Buscando modelo en: {ruta_modelo}")
-print(f"DEBUG: ¿El archivo existe realmente?: {os.path.exists(ruta_modelo)}")
-
-try:
-    modelo_churn = joblib.load(ruta_modelo)
-    print(f"¡ÉXITO! El Cerebro IA se ha cargado correctamente.")
-except Exception as e:
-    modelo_churn = None
-    print(f"ERROR: No se pudo cargar el modelo IA. Razón: {e}")
