@@ -1,0 +1,17 @@
+__pycache__/
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.venv/
+venv/
+env/
+ENV/
+.env
+env
+.vscode/
+.idea/
+*.log
+dist/
+build/
+reporte_errores_validacion.csv
