@@ -151,7 +151,6 @@ El documento de diseño técnico está disponible en:
 Esta etapa permite mejorar la calidad semántica y técnica del dataset antes de su uso en procesos posteriores,
 como carga a base de datos, análisis exploratorio, construcción de modelos o generación de reportes.
 Además, deja evidencia reproducible de las reglas aplicadas y de los problemas detectados.
-<<<<<<< HEAD
 
 ## Validación y limpieza del dataset de Telco
 
@@ -188,5 +187,3 @@ Además, deja evidencia reproducible de las reglas aplicadas y de los problemas 
 Esta etapa permite mejorar la calidad semántica y técnica del dataset antes de su uso en procesos posteriores,
 como carga a base de datos, análisis exploratorio, construcción de modelos o generación de reportes.
 Además, deja evidencia reproducible de las reglas aplicadas y de los problemas detectados.
-=======
->>>>>>> f326489653ce93c0fe3b366bd6d79b25c994ff20
