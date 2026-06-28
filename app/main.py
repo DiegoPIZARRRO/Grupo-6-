@@ -12,6 +12,8 @@ DIRECTORIO_RAIZ = os.path.dirname(DIRECTORIO_APP)
 
 ruta_modelo = os.path.join(DIRECTORIO_RAIZ, "artifacts", "predictor_churn_pipeline.joblib")
 
+print(f"DEBUG: Buscando modelo en: {os.path.abspath(ruta_modelo)}")
+
 try:
     modelo_churn = joblib.load(ruta_modelo)
     print(f"¡ÉXITO! El Cerebro IA se ha cargado correctamente desde: {ruta_modelo}")
