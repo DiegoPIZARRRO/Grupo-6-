@@ -73,7 +73,7 @@ def SMOTE_RUS (X_train,y_train,sample_smote,sample_rus):
 
 def main():
 
-    #Carga de datos depurados
+        #Carga de datos depurados
     with medir_rendimiento("Carga de datos", detalle='pd.read_excel("data/processed/telco_limpio.csv")'):
         data = pd.read_excel("data/processed/telco_limpio.csv")
 
@@ -261,6 +261,15 @@ def main():
             [df_metricas_tree, df_metricas_lr, df_metricas_mlp],
             ignore_index=True
         )
+        
+    # ============================================================
+    # 1. IMPRESIÓN DE EVALUACIÓN A PRIORI (TABLA COMPLETA)
+    # ============================================================
+    print("\n" + "="*80)
+    print("EVALUACIÓN A PRIORI (Tabla Consolidada de Métricas)")
+    print("="*80)
+    print(df_metricas_consolidadas.to_string(index=False))
+    print("="*80 + "\n")
 
     # Guardamos todos los resultados obtenido en los procesos de Cross Validation en una lista
     scores = [tree_scores,lr_scores,mlp_scores]
@@ -282,14 +291,8 @@ def main():
         df_score_means = pd.DataFrame.from_dict(dict_score_means,orient = 'index',  columns = ['Score mean'])
 
     # ============================================================
-    # GUARDAR SOLO EL PIPELINE CON MEJOR F1 USANDO JOBLIB
-    # Y SIMULAR UNA INFERENCIA POSTERIOR
-    # ===========================================================
-
-    # ------------------------------------------------------------
-    # 1. Comparar los modelos según el F1 promedio de Cross Validation
-    # ------------------------------------------------------------
-
+    # 2. SELECCIÓN DE MEJOR MODELO Y VALIDACIÓN CRUZADA
+    # ============================================================
     with medir_rendimiento("Selección mejor modelo", detalle="Comparación por F1 promedio de cross validation", unidades=3, unidad_nombre="modelos"):
         f1_tree = np.mean(tree_scores)
         f1_lr = np.mean(lr_scores)
@@ -300,9 +303,10 @@ def main():
             "F1 Promedio": [f1_tree, f1_lr, f1_mlp]
         })
 
-    # ------------------------------------------------------------
-    # 2. Seleccionar el mejor pipeline ya entrenado
-    # ------------------------------------------------------------
+    print("RESULTADOS VALIDACIÓN CRUZADA (F1 Promedio a través de 30 iteraciones)")
+    print("="*80)
+    print(resultados_f1.to_string(index=False))
+    print("="*80 + "\n")
 
     with medir_rendimiento("Asignación clasificador final", detalle="Asignar mejor_clf según modelo con mayor F1", unidades=1, unidad_nombre="modelo seleccionado"):
         mejor_indice = resultados_f1["F1 Promedio"].idxmax()
@@ -317,14 +321,47 @@ def main():
 
         mejor_pipeline = pipelines[mejor_modelo_nombre]
 
+    print(f"---> EL MODELO GANADOR ES: {mejor_modelo_nombre} con un F1 de {mejor_f1:.4f} <--- \n")
+
     #Entrenamiento final del pipeline con mejor f1
     with medir_rendimiento("Entrenamiento pipeline final", detalle="mejor_pipeline.fit(X_train_raw, y_train_raw)", unidades=len(X_train_raw), unidad_nombre="filas train originales"):
         mejor_pipeline.fit(X_train_raw, y_train_raw)
 
-    # ------------------------------------------------------------
-    # 3. Guardar el pipeline en un archivo .joblib
-    # ------------------------------------------------------------
 
+    # ============================================================
+    # 3. SIMULACIÓN DE INFERENCIA CON REGISTRO FICTICIO
+    # ============================================================
+    print("SIMULACIÓN DE PREDICCIÓN CON VALORES FICTICIOS")
+    print("="*80)
+    
+    # Crear un registro ficticio basado en la estructura de X
+    registro_ficticio = X.iloc[[0]].copy()
+    registro_ficticio['tenure'] = 2          # Lleva solo 2 meses
+    registro_ficticio['monthlycharges'] = 95.0 # Paga muy caro
+    registro_ficticio['totalcharges'] = 190.0
+    registro_ficticio['contract'] = 0        # Contrato mes a mes (alto riesgo)
+    
+    print("Registro ficticio ingresado (Cliente de alto riesgo):")
+    print(registro_ficticio.to_string(index=False) + "\n")
+    
+    # Realizar predicción directamente 
+    prediccion = mejor_pipeline.predict(registro_ficticio)
+    print(f"Clasificación predicha (0=Se queda, 1=Abandona): {prediccion[0]}\n")
+    
+    # Obtener probabilidades exactas
+    probabilidades = mejor_pipeline.predict_proba(registro_ficticio)
+    df_probabilidades = pd.DataFrame({
+        "Clase CHURN": mejor_pipeline.classes_,
+        "Probabilidad": probabilidades[0]
+    })
+    
+    print("Probabilidades exactas de la decisión:")
+    print(df_probabilidades.to_string(index=False))
+    print("="*80 + "\n")
+
+    # ------------------------------------------------------------
+    # Guardar el pipeline en un archivo .joblib
+    # ------------------------------------------------------------
     NOMBRE_ARCHIVO = "predictor_churn_pipeline.joblib"
     ARTIFACTS_DIR = Path("artifacts")
     ARTIFACTS_DIR.mkdir(exist_ok=True)
