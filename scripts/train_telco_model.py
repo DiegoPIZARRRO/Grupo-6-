@@ -12,7 +12,7 @@ from sklearn.preprocessing import MinMaxScaler
 from sklearn.tree import DecisionTreeClassifier
 from numpy import mean
 from utils.rendimiento import medir_rendimiento, actualizar_unidades_operacion, registrar_estabilidad_cv
-
+from utils.visualizaciones import matriz_confusion, plot_scores
 
 ##########DEFINICIÓN DE FUNCIONES #####
 def calcula_metricas(nombre_algoritmo,y_test,y_pred):
@@ -73,7 +73,10 @@ def SMOTE_RUS (X_train,y_train,sample_smote,sample_rus):
 
 def main():
 
-        #Carga de datos depurados
+    ARTIFACTS_DIR = Path("artifacts")
+    ARTIFACTS_DIR.mkdir(exist_ok=True)
+
+    #Carga de datos depurados
     with medir_rendimiento("Carga de datos", detalle='pd.read_excel("data/processed/telco_limpio.csv")'):
         data = pd.read_excel("data/processed/telco_limpio.csv")
 
@@ -131,6 +134,13 @@ def main():
     with medir_rendimiento("Predicción Decision Tree", detalle="tree_clf.predict(X_test)", unidades=len(X_test), unidad_nombre="filas test"):
         y_pred = tree_clf.predict(X_test)
 
+    matriz_confusion(
+    y_test,
+    y_pred,
+    nombre_modelo="Decision Tree",
+    guardar_en="artifacts/matriz_confusion_tree.png"
+    )
+
     #Obtiene las métricas del modelo
     with medir_rendimiento("Métricas Decision Tree", detalle="precision, accuracy, recall, f1 y matriz de métricas", unidades=len(y_test), unidad_nombre="filas test"):
         df_metricas_tree = calcula_metricas('Tree',y_test,y_pred)
@@ -161,6 +171,12 @@ def main():
             cv=cv,
             n_jobs=-1
         )
+    plot_scores(
+    tree_scores,
+    ideal=0.8,
+    nombre_modelo="Decision Tree",
+    guardar_en="artifacts/scores_tree.png"
+    )
 
     registrar_estabilidad_cv("Validación cruzada Decision Tree", tree_scores)
 
@@ -177,6 +193,13 @@ def main():
     #Realizo una predicción
     with medir_rendimiento("Predicción Regresión Logística", detalle="lr_clf.predict(X_test)", unidades=len(X_test), unidad_nombre="filas test"):
         y_pred = lr_clf.predict(X_test)
+    
+    matriz_confusion(
+    y_test,
+    y_pred,
+    nombre_modelo="Regresión Logística",
+    guardar_en="artifacts/matriz_confusion_lr.png"
+    )
 
     #Obtiene las métricas del modelo
     with medir_rendimiento("Métricas Regresión Logística", detalle="precision, accuracy, recall, f1 y matriz de métricas", unidades=len(y_test), unidad_nombre="filas test"):
@@ -207,6 +230,13 @@ def main():
             n_jobs=-1
         )
 
+    plot_scores(
+    lr_scores,
+    ideal=0.8,
+    nombre_modelo="Regresión Logística",
+    guardar_en="artifacts/scores_lr.png"
+    )
+
     registrar_estabilidad_cv("Validación cruzada Regresión Logística", lr_scores)
 
     ### PERCEPTRÓN MULTICAPA ###
@@ -224,6 +254,12 @@ def main():
     with medir_rendimiento("Predicción MLP", detalle="mlp_clf.predict(X_test)", unidades=len(X_test), unidad_nombre="filas test"):
         y_pred = mlp_clf.predict(X_test)
 
+    matriz_confusion(
+    y_test,
+    y_pred,
+    nombre_modelo="Perceptrón Multicapa",
+    guardar_en="artifacts/matriz_confusion_mlp.png"
+    )
     #Obtiene las métricas del modelo
     with medir_rendimiento("Métricas MLP", detalle="precision, accuracy, recall, f1 y matriz de métricas", unidades=len(y_test), unidad_nombre="filas test"):
         df_metricas_mlp = calcula_metricas('MLP',y_test,y_pred)
@@ -252,7 +288,12 @@ def main():
             cv=cv,
             n_jobs=-1
         )
-
+    plot_scores(
+    mlp_scores,
+    ideal=0.8,
+    nombre_modelo="Perceptrón Multicapa",
+    guardar_en="artifacts/scores_mlp.png"
+)
     registrar_estabilidad_cv("Validación cruzada MLP", mlp_scores)
 
     # Consolida todas las métricas obtenidas antes del proceso de validación cruzada
@@ -261,7 +302,37 @@ def main():
             [df_metricas_tree, df_metricas_lr, df_metricas_mlp],
             ignore_index=True
         )
-        
+    df_metricas_consolidadas.to_csv(
+        ARTIFACTS_DIR / "metricas_modelos.csv",
+        index=False,
+        encoding="utf-8-sig"
+    )
+
+    #Visualización de métricas
+    df_metricas_vista = df_metricas_consolidadas.copy()
+
+    columnas_metricas = ["Exactitud", "Precisión", "Sensibilidad", "F1", "AUC"]
+
+    for col in columnas_metricas:
+        df_metricas_vista[col] = pd.to_numeric(df_metricas_vista[col], errors="coerce")
+
+    tabla_metricas_estilizada = (
+    df_metricas_vista.style
+    .set_caption("Métricas consolidadas de los modelos")
+    .format({
+        "Exactitud": "{:.4f}",
+        "Precisión": "{:.4f}",
+        "Sensibilidad": "{:.4f}",
+        "F1": "{:.4f}",
+        "AUC": "{:.4f}"
+    }, na_rep="-")
+    .background_gradient(subset=["Exactitud", "Precisión", "Sensibilidad", "F1", "AUC"], cmap="Blues")
+    .hide(axis="index")
+    )
+
+    with open(ARTIFACTS_DIR / "metricas_consolidadas.html", "w", encoding="utf-8") as f:
+        f.write(tabla_metricas_estilizada.to_html())
+
     # ============================================================
     # 1. IMPRESIÓN DE EVALUACIÓN A PRIORI (TABLA COMPLETA)
     # ============================================================
@@ -355,16 +426,10 @@ def main():
         "Probabilidad": probabilidades[0]
     })
     
-    print("Probabilidades exactas de la decisión:")
-    print(df_probabilidades.to_string(index=False))
-    print("="*80 + "\n")
-
     # ------------------------------------------------------------
     # Guardar el pipeline en un archivo .joblib
     # ------------------------------------------------------------
     NOMBRE_ARCHIVO = "predictor_churn_pipeline.joblib"
-    ARTIFACTS_DIR = Path("artifacts")
-    ARTIFACTS_DIR.mkdir(exist_ok=True)
 
     with medir_rendimiento("Guardado modelo Joblib", detalle=f"joblib.dump(mejor_pipeline, {NOMBRE_ARCHIVO})", unidades=1, unidad_nombre="archivo"):
         joblib.dump(mejor_pipeline, ARTIFACTS_DIR / NOMBRE_ARCHIVO)
