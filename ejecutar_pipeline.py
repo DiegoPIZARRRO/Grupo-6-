@@ -21,7 +21,8 @@ def main():
         "scripts/ingesta.py",
         "scripts/limpieza_transformacion.py",
         "scripts/validacion_estructural_semantica.py",
-        "scripts/carga_telco_supabase.py"
+        "scripts/carga_telco_supabase.py",
+        "scripts/train_telco_model.py"
     ]
 
     for script in scripts:

@@ -1,7 +1,6 @@
 import os
 import time
 import math
-import traceback
 import threading
 from contextlib import contextmanager
 from datetime import datetime
